@@ -1,0 +1,73 @@
+﻿Build started 3/13/2012 10:15:32 PM.
+     1>Project "C:\Users\Bill Pegg\Desktop\Spring 2012 SPSU\CS3243 OS\project\project-VS\newProj1\newProj1\newProj1.vcxproj" on node 2 (build target(s)).
+     1>InitializeBuildStatus:
+         Touching "Debug\newProj1.unsuccessfulbuild".
+       ClCompile:
+         c:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /Od /Oy- /D WIN32 /D _DEBUG /D _CONSOLE /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc100.pdb" /Gd /TP /analyze- /errorReport:prompt "..\..\..\..\..\..\..\Dropbox\CS3224-Operating Systems\Bill\opcode test\long-term_scheduler.cpp" OS_Sim_Driver_1.cpp
+         OS_Sim_Driver_1.cpp
+     1>c:\users\bill pegg\desktop\spring 2012 spsu\cs3243 os\project\project-vs\newproj1\newproj1\cpu.h(19): warning C4091: 'typedef ' : ignored on left of 'CACHE_STRUCT' when no variable is declared
+     1>c:\users\bill pegg\desktop\spring 2012 spsu\cs3243 os\project\project-vs\newproj1\newproj1\os_sim_driver_1.cpp(173): warning C4101: 'temp' : unreferenced local variable
+         long-term_scheduler.cpp
+     1>c:\users\bill pegg\dropbox\cs3224-operating systems\bill\opcode test\long-term_scheduler.cpp(16): warning C4005: 'NULL' : macro redefinition
+                 c:\program files (x86)\microsoft visual studio 10.0\vc\include\stdio.h(120) : see previous definition of 'NULL'
+         Generating Code...
+       ManifestResourceCompile:
+         All outputs are up-to-date.
+       Link:
+         c:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\Bill Pegg\Desktop\Spring 2012 SPSU\CS3243 OS\project\project-VS\newProj1\Debug\newProj1.exe" /INCREMENTAL /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /ManifestFile:"Debug\newProj1.exe.intermediate.manifest" /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /DEBUG /PDB:"C:\Users\Bill Pegg\Desktop\Spring 2012 SPSU\CS3243 OS\project\project-VS\newProj1\Debug\newProj1.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\Bill Pegg\Desktop\Spring 2012 SPSU\CS3243 OS\project\project-VS\newProj1\Debug\newProj1.lib" /MACHINE:X86 Debug\newProj1.exe.embed.manifest.res
+         "Debug\long-term_scheduler.obj"
+         Debug\cpu.obj
+         Debug\Disk.obj
+         Debug\file_loader.obj
+         Debug\LT_Sched.obj
+         Debug\OS_Sim_Driver_1.obj
+         Debug\RAM.obj
+     1>long-term_scheduler.obj : error LNK2019: unresolved external symbol "public: bool __thiscall pcb::setStatus(int const &,enum STATUS const &)" (?setStatus@pcb@@QAE_NABHABW4STATUS@@@Z) referenced in function "public: void __thiscall LongScheduler::moveToRAM(void)" (?moveToRAM@LongScheduler@@QAEXXZ)
+     1>cpu.obj : error LNK2001: unresolved external symbol "public: bool __thiscall pcb::setStatus(int const &,enum STATUS const &)" (?setStatus@pcb@@QAE_NABHABW4STATUS@@@Z)
+     1>file_loader.obj : error LNK2001: unresolved external symbol "public: bool __thiscall pcb::setStatus(int const &,enum STATUS const &)" (?setStatus@pcb@@QAE_NABHABW4STATUS@@@Z)
+     1>LT_Sched.obj : error LNK2001: unresolved external symbol "public: bool __thiscall pcb::setStatus(int const &,enum STATUS const &)" (?setStatus@pcb@@QAE_NABHABW4STATUS@@@Z)
+     1>long-term_scheduler.obj : error LNK2001: unresolved external symbol "class std::queue<int,class std::deque<int,class std::allocator<int> > > running_queue" (?running_queue@@3V?$queue@HV?$deque@HV?$allocator@H@std@@@std@@@std@@A)
+     1>long-term_scheduler.obj : error LNK2019: unresolved external symbol "public: int __thiscall pcb::getCodeSize(int const &)" (?getCodeSize@pcb@@QAEHABH@Z) referenced in function "public: void __thiscall LongScheduler::moveToRAM(void)" (?moveToRAM@LongScheduler@@QAEXXZ)
+     1>cpu.obj : error LNK2001: unresolved external symbol "public: int __thiscall pcb::getCodeSize(int const &)" (?getCodeSize@pcb@@QAEHABH@Z)
+     1>LT_Sched.obj : error LNK2001: unresolved external symbol "public: int __thiscall pcb::getCodeSize(int const &)" (?getCodeSize@pcb@@QAEHABH@Z)
+     1>long-term_scheduler.obj : error LNK2001: unresolved external symbol "class std::queue<int,class std::deque<int,class std::allocator<int> > > terminated_queue" (?terminated_queue@@3V?$queue@HV?$deque@HV?$allocator@H@std@@@std@@@std@@A)
+     1>long-term_scheduler.obj : error LNK2019: unresolved external symbol "public: unsigned int __thiscall pcb::getCodeDiskAddress(int const &)" (?getCodeDiskAddress@pcb@@QAEIABH@Z) referenced in function "public: void __thiscall LongScheduler::moveToDisk(void)" (?moveToDisk@LongScheduler@@QAEXXZ)
+     1>LT_Sched.obj : error LNK2001: unresolved external symbol "public: unsigned int __thiscall pcb::getCodeDiskAddress(int const &)" (?getCodeDiskAddress@pcb@@QAEIABH@Z)
+     1>long-term_scheduler.obj : error LNK2019: unresolved external symbol "public: unsigned int __thiscall pcb::getCodeStartRamAddress(int const &)" (?getCodeStartRamAddress@pcb@@QAEIABH@Z) referenced in function "public: void __thiscall LongScheduler::moveToDisk(void)" (?moveToDisk@LongScheduler@@QAEXXZ)
+     1>cpu.obj : error LNK2001: unresolved external symbol "public: unsigned int __thiscall pcb::getCodeStartRamAddress(int const &)" (?getCodeStartRamAddress@pcb@@QAEIABH@Z)
+     1>LT_Sched.obj : error LNK2001: unresolved external symbol "public: unsigned int __thiscall pcb::getCodeStartRamAddress(int const &)" (?getCodeStartRamAddress@pcb@@QAEIABH@Z)
+     1>long-term_scheduler.obj : error LNK2019: unresolved external symbol "public: int __thiscall pcb::getStatus(int const &)" (?getStatus@pcb@@QAEHABH@Z) referenced in function "public: void __thiscall LongScheduler::moveToDisk(void)" (?moveToDisk@LongScheduler@@QAEXXZ)
+     1>LT_Sched.obj : error LNK2001: unresolved external symbol "public: int __thiscall pcb::getStatus(int const &)" (?getStatus@pcb@@QAEHABH@Z)
+     1>cpu.obj : error LNK2019: unresolved external symbol "public: unsigned int __thiscall pcb::getTempBufferRamAddress(int const &)" (?getTempBufferRamAddress@pcb@@QAEIABH@Z) referenced in function "public: void __thiscall cpu::writeRamBlockToCache(int const &,int const &,enum CACHE_TYPE)" (?writeRamBlockToCache@cpu@@QAEXABH0W4CACHE_TYPE@@@Z)
+     1>cpu.obj : error LNK2019: unresolved external symbol "public: unsigned int __thiscall pcb::getOutputBufferRamAddress(int const &)" (?getOutputBufferRamAddress@pcb@@QAEIABH@Z) referenced in function "public: void __thiscall cpu::writeRamBlockToCache(int const &,int const &,enum CACHE_TYPE)" (?writeRamBlockToCache@cpu@@QAEXABH0W4CACHE_TYPE@@@Z)
+     1>LT_Sched.obj : error LNK2001: unresolved external symbol "public: unsigned int __thiscall pcb::getOutputBufferRamAddress(int const &)" (?getOutputBufferRamAddress@pcb@@QAEIABH@Z)
+     1>cpu.obj : error LNK2019: unresolved external symbol "public: unsigned int __thiscall pcb::getInputBufferRamAddress(int const &)" (?getInputBufferRamAddress@pcb@@QAEIABH@Z) referenced in function "public: void __thiscall cpu::writeRamBlockToCache(int const &,int const &,enum CACHE_TYPE)" (?writeRamBlockToCache@cpu@@QAEXABH0W4CACHE_TYPE@@@Z)
+     1>LT_Sched.obj : error LNK2001: unresolved external symbol "public: unsigned int __thiscall pcb::getInputBufferRamAddress(int const &)" (?getInputBufferRamAddress@pcb@@QAEIABH@Z)
+     1>file_loader.obj : error LNK2019: unresolved external symbol "public: bool __thiscall pcb::setDataDiskAddress(int const &,unsigned int const &)" (?setDataDiskAddress@pcb@@QAE_NABHABI@Z) referenced in function "public: bool __thiscall file_loader::read_file(class pcb &)" (?read_file@file_loader@@QAE_NAAVpcb@@@Z)
+     1>file_loader.obj : error LNK2019: unresolved external symbol "public: bool __thiscall pcb::setTempBufSize(int const &,int const &)" (?setTempBufSize@pcb@@QAE_NABH0@Z) referenced in function "public: bool __thiscall file_loader::read_file(class pcb &)" (?read_file@file_loader@@QAE_NAAVpcb@@@Z)
+     1>file_loader.obj : error LNK2019: unresolved external symbol "public: bool __thiscall pcb::setOutBufSize(int const &,int const &)" (?setOutBufSize@pcb@@QAE_NABH0@Z) referenced in function "public: bool __thiscall file_loader::read_file(class pcb &)" (?read_file@file_loader@@QAE_NAAVpcb@@@Z)
+     1>file_loader.obj : error LNK2019: unresolved external symbol "public: bool __thiscall pcb::setInBufSize(int const &,int const &)" (?setInBufSize@pcb@@QAE_NABH0@Z) referenced in function "public: bool __thiscall file_loader::read_file(class pcb &)" (?read_file@file_loader@@QAE_NAAVpcb@@@Z)
+     1>file_loader.obj : error LNK2019: unresolved external symbol "public: bool __thiscall pcb::setCodeDiskAddress(int const &,unsigned int const &)" (?setCodeDiskAddress@pcb@@QAE_NABHABI@Z) referenced in function "public: bool __thiscall file_loader::read_file(class pcb &)" (?read_file@file_loader@@QAE_NAAVpcb@@@Z)
+     1>file_loader.obj : error LNK2019: unresolved external symbol "public: bool __thiscall pcb::setCpuId(int const &,unsigned int const &)" (?setCpuId@pcb@@QAE_NABHABI@Z) referenced in function "public: bool __thiscall file_loader::read_file(class pcb &)" (?read_file@file_loader@@QAE_NAAVpcb@@@Z)
+     1>file_loader.obj : error LNK2019: unresolved external symbol "public: bool __thiscall pcb::setPc(int const &,unsigned long const &)" (?setPc@pcb@@QAE_NABHABK@Z) referenced in function "public: bool __thiscall file_loader::read_file(class pcb &)" (?read_file@file_loader@@QAE_NAAVpcb@@@Z)
+     1>file_loader.obj : error LNK2019: unresolved external symbol "public: bool __thiscall pcb::setPriority(int const &,int const &)" (?setPriority@pcb@@QAE_NABH0@Z) referenced in function "public: bool __thiscall file_loader::read_file(class pcb &)" (?read_file@file_loader@@QAE_NAAVpcb@@@Z)
+     1>file_loader.obj : error LNK2019: unresolved external symbol "public: bool __thiscall pcb::setProcessSize(int const &,int const &)" (?setProcessSize@pcb@@QAE_NABH0@Z) referenced in function "public: bool __thiscall file_loader::read_file(class pcb &)" (?read_file@file_loader@@QAE_NAAVpcb@@@Z)
+     1>file_loader.obj : error LNK2019: unresolved external symbol "public: bool __thiscall pcb::setCodeSize(int const &,unsigned long const &)" (?setCodeSize@pcb@@QAE_NABHABK@Z) referenced in function "public: bool __thiscall file_loader::read_file(class pcb &)" (?read_file@file_loader@@QAE_NAAVpcb@@@Z)
+     1>LT_Sched.obj : error LNK2019: unresolved external symbol "public: bool __thiscall pcb::setTempBufferAddress(int const &,unsigned int const &)" (?setTempBufferAddress@pcb@@QAE_NABHABI@Z) referenced in function "public: void __thiscall LT_Sched::loadJobs(void)" (?loadJobs@LT_Sched@@QAEXXZ)
+     1>LT_Sched.obj : error LNK2019: unresolved external symbol "public: bool __thiscall pcb::setOutputBufferAddress(int const &,unsigned int const &)" (?setOutputBufferAddress@pcb@@QAE_NABHABI@Z) referenced in function "public: void __thiscall LT_Sched::loadJobs(void)" (?loadJobs@LT_Sched@@QAEXXZ)
+     1>LT_Sched.obj : error LNK2019: unresolved external symbol "public: bool __thiscall pcb::setInputBufferAddress(int const &,unsigned int const &)" (?setInputBufferAddress@pcb@@QAE_NABHABI@Z) referenced in function "public: void __thiscall LT_Sched::loadJobs(void)" (?loadJobs@LT_Sched@@QAEXXZ)
+     1>LT_Sched.obj : error LNK2019: unresolved external symbol "public: bool __thiscall pcb::setCodeStartAddress(int const &,unsigned int const &)" (?setCodeStartAddress@pcb@@QAE_NABHABI@Z) referenced in function "public: void __thiscall LT_Sched::loadJobs(void)" (?loadJobs@LT_Sched@@QAEXXZ)
+     1>OS_Sim_Driver_1.obj : error LNK2019: unresolved external symbol "public: bool __thiscall ST_Sched::contextSwitchSaveState(int const &,int const &)" (?contextSwitchSaveState@ST_Sched@@QAE_NABH0@Z) referenced in function _main
+     1>OS_Sim_Driver_1.obj : error LNK2019: unresolved external symbol "public: bool __thiscall ST_Sched::contextSwitchLoadState(int const &,int const &)" (?contextSwitchLoadState@ST_Sched@@QAE_NABH0@Z) referenced in function _main
+     1>OS_Sim_Driver_1.obj : error LNK2019: unresolved external symbol "public: int __thiscall ST_Sched::dispatch(void)" (?dispatch@ST_Sched@@QAEHXZ) referenced in function _main
+     1>OS_Sim_Driver_1.obj : error LNK2019: unresolved external symbol "public: void __thiscall pcb::outputPcbInfoNoLabels(int const &)" (?outputPcbInfoNoLabels@pcb@@QAEXABH@Z) referenced in function "void __cdecl displayPidTable(void)" (?displayPidTable@@YAXXZ)
+     1>OS_Sim_Driver_1.obj : error LNK2019: unresolved external symbol "public: __thiscall pcb::pcb(void)" (??0pcb@@QAE@XZ) referenced in function "void __cdecl `dynamic initializer for 'pcb_table''(void)" (??__Epcb_table@@YAXXZ)
+     1>OS_Sim_Driver_1.obj : error LNK2019: unresolved external symbol "public: __thiscall ST_Sched::ST_Sched(void)" (??0ST_Sched@@QAE@XZ) referenced in function "void __cdecl `dynamic initializer for 'st_sched''(void)" (??__Est_sched@@YAXXZ)
+     1>OS_Sim_Driver_1.obj : error LNK2019: unresolved external symbol "public: __thiscall pcb::~pcb(void)" (??1pcb@@QAE@XZ) referenced in function "void __cdecl `dynamic atexit destructor for 'pcb_table''(void)" (??__Fpcb_table@@YAXXZ)
+     1>OS_Sim_Driver_1.obj : error LNK2019: unresolved external symbol "public: __thiscall ST_Sched::~ST_Sched(void)" (??1ST_Sched@@QAE@XZ) referenced in function "void __cdecl `dynamic atexit destructor for 'st_sched''(void)" (??__Fst_sched@@YAXXZ)
+     1>C:\Users\Bill Pegg\Desktop\Spring 2012 SPSU\CS3243 OS\project\project-VS\newProj1\Debug\newProj1.exe : fatal error LNK1120: 32 unresolved externals
+     1>Done Building Project "C:\Users\Bill Pegg\Desktop\Spring 2012 SPSU\CS3243 OS\project\project-VS\newProj1\newProj1\newProj1.vcxproj" (build target(s)) -- FAILED.
+
+Build FAILED.
+
+Time Elapsed 00:00:04.24

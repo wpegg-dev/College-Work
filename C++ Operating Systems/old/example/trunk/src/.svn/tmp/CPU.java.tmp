@@ -1,0 +1,88 @@
+/**
+* A CPU Emulator
+*
+* @author William Jeff Lett
+* @author Kevin DeBrito
+*/
+
+
+
+public class CPU {	
+
+	/* Implement These!! */
+
+	/** 
+	* Fetches the next instruction from RAM 
+	*/
+	public static void fetch() {}
+	
+<<<<<<< .mine
+	/** 
+	* Fetches an instruction from RAM
+	* @param a The address of the instruction to grab
+	*/
+	public static void fetch(int a) {
+		
+	}
+	
+	/** 
+	* Decodes an instruction
+	* @param s The String instruction to be decoded 
+	*/
+	public static void decode(String s) {
+		
+	}
+	
+	/** 
+	* Executes an instruction 
+	*/	
+=======
+	/**
+	* Decodes an instruction 
+	*/
+	public static void decode() {}
+	
+	/** 
+	* Execute 
+	*/	
+>>>>>>> .r20
+	public static void execute() {}
+<<<<<<< .mine
+	
+	
+=======
+
+>>>>>>> .r20
+	/** Saves the state of the CPU */
+	public static void save_state() {}
+<<<<<<< .mine
+	
+=======
+
+>>>>>>> .r20
+	/** Restores the state of the CPU */
+	public static void restore_state() {}
+	
+
+	/** 
+	* Perform a cycle for this CPU 
+	*/
+	public static void cycle() {
+		
+	}
+
+	
+	/** VARIABLES */
+	
+	/** Program Counter */
+	private int pc;
+	
+	/** Registers */
+	private int[] registers;
+	
+	/** Status of the CPU */
+	private Driver.Status status;
+	
+	
+	
+}

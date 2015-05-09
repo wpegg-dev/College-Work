@@ -1,0 +1,285 @@
+/**
+* RAM emulator
+*
+* @author William Jeff Lett
+* @author Kevin DeBrito
+*/
+
+public class RAM 
+{
+	/** The static instance of RAM */
+	private static String [] ram;
+	
+	/** The size of RAM */
+	private static int size;
+	
+	/** The next available location in RAM */
+	private static int nextFreeWord; 
+	
+	/** The total RAM used (for stats) */
+	private static int totalRamUsed;
+	
+	/**
+	* Default constructor
+	*/
+	public RAM()
+	{
+		ram=new String[Driver.RAM_SIZE];
+		size=Driver.RAM_SIZE;
+		nextFreeWord=0; 
+		totalRamUsed=0;
+	}
+		
+	/**
+	* Constructor builds RAM of a certain size
+	* @param s The size of the RAM to be created
+	*/
+	public RAM(int s)
+	{
+		ram=new String[s];
+		size=ram.length;
+		nextFreeWord=0;
+		totalRamUsed=0;
+	}
+	
+	/**
+	* Saves the ram info (for stats)
+	*/
+	public static void saveStats() {
+		//System.out.println("free:"+free());
+		//System.out.println("size:"+size+" free:"+free()+" used():"+used()+" used()/size:"+(((used()*100)/size)));
+		totalRamUsed+=((used()*100)/size);	
+	}	
+	
+	/** 
+	* Prints the RAM info (for stats)
+	* The number of cycles that have been run
+	*/
+	public static void printStats(int totalCycleCounter) {
+		System.out.println("totlaram:"+totalRamUsed+" totalcycle"+totalCycleCounter);
+		System.out.println("Average RAM Used: "+(totalRamUsed/totalCycleCounter)+"%");
+	}
+	
+	/**
+	* Returns the size
+	* @return The size of this RAM
+	*/
+	public static int size()
+	{
+		return size; 
+	}	
+	
+	/**
+	* Returns whether the RAM is empty or not
+	* @return Whether the RAM is empty or not
+	*/
+	private static boolean empty() 
+	{ 
+		return nextFreeWord==0; 
+	}
+	
+	/** 
+	* Returns whether the RAM is full or not
+	* @return Whether the RAM is full or not
+	*/
+	public static boolean full() {
+		return nextFreeWord==Driver.RAM_SIZE;	
+	}
+	
+	/**
+	* Returns the used space in RAM
+	* @return The used space in RAM
+	*/
+	public static int used() {
+		return size-free();
+	}	
+	
+	/**
+	* Returns the space left in RAM
+	* @return The space left in RAM
+	*/
+	public static int free() {
+		return Driver.RAM_SIZE-nextFreeWord;	
+	}	
+	
+	/**
+	* Converts the RAM to a string for debugging
+	* @return A string representation of this RAM
+	*/
+	public String toString()
+   {
+   	String temp = "Memory Dump:\n";          
+      for(int i = 0; i < ram.length; i++)
+      {
+      	if(ram[i]!=null) {
+		      temp += ram[i];
+				if(i%8==7)
+					temp+="\n";		   
+		   }
+      }            
+      return temp;
+   }
+   
+	/**
+	* Returns a string value of a certain part of the RAM
+	* @param b Where to begin the string
+	* @param e Where the end the string
+	* @return A string representation of part of the RAM	
+	*/
+	public String toString(int b, int e) {
+		String r = "RAM Contents "+b+"-"+e+":\n";
+		for(int i=b;i<e;++i) {
+			int width=12;
+			if(ram[i]==null)
+				r+="00000000";
+			else					
+				r+=ram[i];	
+			if(i%width!=width-1)
+				r+=",";
+			if(i%width==width-1)
+				r+=":"+i+"\n";	
+		}
+		return r;
+	}   
+   
+	/**
+	* Returns a wider representation of the ram (to see it all on 1 screen for debugging)
+	* @return A string value of this ram
+	*/
+	public String toWideString() {
+		String r="Ram["+size+"]:\n";
+		for(int i=0;i<ram.length;++i) {
+			int width=12;
+			if(ram[i]==null)
+				r+="00000000";
+			else					
+				r+=ram[i];	
+			if(i%width!=width-1)
+				r+=",";
+			if(i%width==width-1)
+				r+=":"+i+"\n";	
+		}
+		return r;
+	}  
+   	
+   /**
+	* Erases the contents of this ram
+	*/
+	public static void erase() {
+		for(int i=0;i<ram.length;++i) {
+			ram[i]="00000000";	
+		}	
+		nextFreeWord=0;
+	}	
+   
+	/**
+	* Formats a hex string for RAM
+	* @param s The hex string to format
+	* @return The formatted hex string
+	*/
+	public static String hexFormat(String s) {
+		if(s!=null && s!="") {
+			s=s.toUpperCase();
+			for(int i=0+s.length();i<8;++i)
+				s="0"+s;
+			return s;
+		}
+		return "00000000";
+	}
+   
+   
+   /**
+   * Reads from RAM the DMA way
+   * @param b The base address of this process
+   * @param o The offset of this read
+   */
+   public static String read(int b, int o) {
+   	if(b+o>=0 && b+o<Driver.RAM_SIZE) {
+   		return ram[b+0];
+   	}
+   	else {
+   		System.out.println("RAM Read Error @ Location:"+(b+0));
+   		return "";	
+   	}
+   }
+   
+   
+   /**
+   * Reads from RAM
+   * @param location The address to read from
+   * @return The data that was read
+   */
+	public static String read(int location) 
+	{
+		if(location >= 0 && location < Driver.RAM_SIZE)
+      {
+         return ram[location];
+      }
+      else
+      {	
+      	System.out.println("RAM Read Error: location-"+location);
+         return "";
+     	}
+	}
+	
+	/**
+	* Writes to RAM in the next free spot
+	* @param s The string to be written
+	* @return Returns the address written to
+	*/
+	public static int write(String s) {
+		if(nextFreeWord>Driver.RAM_SIZE-1) {
+			System.out.println("Write Error: location-"+nextFreeWord);
+		}
+		else {
+			if(s!=null) {
+				ram[nextFreeWord]=hexFormat(s);
+				int tmp = nextFreeWord;
+				++nextFreeWord;
+				return tmp;
+			}	
+		}	
+		return -1;	
+	}
+
+	/**
+	* Writes data to RAM
+	* @param data The string to write
+	* @param location The address to write the data to
+	*/
+	public static void write(String data,int location) 
+	{
+		if (data != null)
+		{		
+			data = hexFormat(data);	
+			if(location >= 0 && location < Driver.RAM_SIZE)
+			{
+				ram[location] = data;
+			}
+			else
+			{
+				System.out.println ("Write Error");
+			}
+		}		
+		else
+			System.out.println ("Invalid");
+	}
+	
+	/**
+	* Writes the data to RAM the DMA way
+	* @param s The string to be written
+	* @param b The base address of this process
+	* @param o The offset of this write
+	*/
+	public static void write(String s, int b, int o) {
+		if(s!=null) {
+			s=hexFormat(s);
+			if(b+o<=0 && b+o<Driver.RAM_SIZE) {
+				ram[b+o]=s;
+			}
+			else {
+					System.out.println("RAM Write Error @ Location:"+(b+o));
+			}	
+		}	
+	}	
+}

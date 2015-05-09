@@ -1,0 +1,152 @@
+/**
+* Main Driver for the OS
+*
+* @author William Jeff Lett
+* @author Kevin DeBrito
+*/
+
+
+public class Driver {	
+
+	/* Constants */
+	
+	/** Jeff's Debugging variable.  Set to true for his debugging output. */
+	public final static boolean DEBUG = true;
+	
+	/** Messages can be turned on or off here */
+	public final static boolean MESSAGES = true;
+	
+	/** Which register is the zero register */
+	public final static int ZERO_REGISTER = 1;
+	
+	/** Which register is the accumulator */
+	public final static int ACCUMULATOR = 0;
+	
+	/** First input file */
+	public final static String FILE_1_NAME = "./include/DataFile1.txt";
+	
+	/** Second input file */	
+	public final static String FILE_2_NAME = "./include/DataFile2.txt";
+	
+	/** Size of disk */	
+	public final static int DISK_SIZE = 2048;
+
+	/** Size of RAM */	
+	public final static int RAM_SIZE = 1024;
+
+	/** Number of registers */
+	public final static int NUM_REGISTERS = 16;
+	
+	public static MemoryManager MemoryManage;
+        
+   public static PCB pcb;
+        
+  public static LongScheduler longtermsched;
+        
+ //public static int counter = 0;
+ //public static double sumPercent;
+ //public static double totalPercent;
+        
+
+	/** Status enum */
+	public enum Status {
+		/** New process */
+		NEW,
+		/** Running process */
+		RUNNING,
+		/** Waiting */
+		WAITING,
+		/** Ready */
+		READY,
+		/** Finished process */
+		TERMINATED};
+
+	public static void main(String[] args) {
+
+		Disk myDrive;
+		Loader myLoader;
+		
+		if(MESSAGES) {
+			System.out.println("Instantiating Disk...");
+		}	
+		MemoryManage = new MemoryManager();
+      longtermsched = new LongScheduler();	
+		myDrive = new Disk();
+		
+		if(myDrive!=null && MESSAGES) {		
+			System.out.println("Disk created!");
+		}
+		else if(MESSAGES)
+			System.out.println("Failure!");
+			
+		if(MESSAGES) 	
+			System.out.println("Loading processes into Disk...");
+
+		myLoader = new Loader();
+
+		if(MESSAGES) {			
+			if(myLoader!=null)
+				System.out.println("Processes loaded!");
+			else
+				System.out.println("Failure!");
+		}			
+
+		ProcessQueue unReadyQueue = myLoader.load(myDrive);
+		
+		if(DEBUG)
+				;//unReadyQueue.print();
+		
+
+		RAM myRAM = new RAM();
+
+		if(DEBUG) {	
+			;//System.out.println("Disk:"+myDrive.read(0));
+		}
+
+		CPU myCPU = new CPU(myDrive,myRAM);
+		int count = 0 ;
+		do {
+			if(DEBUG)
+				System.out.println(myCPU.toString());
+			if(DEBUG)
+				;//System.out.println("Instruction#:"+count);		
+			
+			/* Change me to RAM */			
+			String temp = myCPU.fetch(myDrive);
+			
+			if(DEBUG)
+				System.out.println("Instruction:"+temp);	
+	
+			String machineCode = myCPU.decode(temp);
+			
+			if(DEBUG)
+				;//System.out.println("machineCode:"+machineCode);		
+				
+			myCPU.execute(machineCode);
+				
+			++count;
+							
+		} while(myCPU.getStatus() != Driver.Status.TERMINATED && myCPU.getPc() < 2);//&& count < 1000);
+		
+		if(DEBUG) {	
+			//System.out.println(myDrive.toString());
+			//System.out.println(myDrive.toWideString());
+			//System.out.println("22:"+myDrive.read(22));		
+			myDrive.erase();
+			//System.out.println(myDrive.toString());	
+		}
+		/* while (!Driver.Status.TERMINATED || !LongScheduler.readyqueue.isEmpty())
+                {
+                	sumPercent += LongScheuler.percent;
+                	counter++;
+                	
+                	if(!LongScheduler.readyqueue.isEmpty())
+                	{
+                		System.out.println("Number of Processes: " + LongScheduler.readyqueue.size());
+                		
+                	}
+                	System.out.println("\nAdding more Processes.........\n");
+                	longtermsched.start();
+                } */
+	}
+}

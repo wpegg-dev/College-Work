@@ -1,0 +1,390 @@
+
+import java.util.*;
+import java.util.Date; 
+
+
+/**
+* Main Driver for the OS
+*
+* @author William Jeff Lett
+* @author Kevin DeBrito
+*/
+public class Driver {	
+
+	/* Constants */
+
+	/** How many cpus to run */
+	public final static int NUM_CPUS = 1;
+	
+	/** Scheduling policy, (FIFO,SJF,LOW_PRIORITY or HIGH_PRIORITY) */
+   public static SchedulingPolicy schedulingPolicy=SchedulingPolicy.FIFO;
+	
+	/** Jeff's Debugging variable.  Set to true for his debugging output. */
+	public final static boolean DEBUG = true;
+	
+	/** Messages can be turned on or off here */
+	public final static boolean MESSAGES = true;
+	
+	/** Which register is the zero register */
+	public final static int ZERO_REGISTER = 1;
+	
+	/** Which register is the accumulator */
+	public final static int ACCUMULATOR = 0;
+	
+	/** First input file */
+	public final static String FILE_1_NAME = "./include/DataFile1.txt";
+	
+	/** Second input file */	
+	public final static String FILE_2_NAME = "./include/DataFile2.txt";
+	
+	/** Size of disk */	
+	public final static int DISK_SIZE = 2048;
+
+	/** Size of RAM */	
+	public final static int RAM_SIZE = 1024;
+
+	/** Number of registers */
+	public final static int NUM_REGISTERS = 16;
+	
+	/** Overall cycle counter */        
+ 	public static int totalCycleCounter = 0;
+ 	
+ 	/** Percentage of ram that is filled total (for ram overall % used) */
+ 	public static double sumPercent;
+ 	
+	/** Percentage of RAM used overall */ 	
+ 	public static double totalPercent;
+ 	
+ 	/** Variable to hold the largest process size. (To know for cache creation) */
+ 	public static int largestProcessSize;
+ 
+ 	/** Disk instance */	
+ 	public static Disk disk;
+ 	
+ 	/** Ram instance */
+ 	public static RAM ram;
+
+	/** CPU Array */ 	
+ 	public static CPU[] cpu;
+ 	
+ 	/** Loader instance */
+ 	public static Loader loader;
+ 	
+ 	/** ReadyQueue instance */
+ 	public static ProcessQueue readyQueue;
+ 	
+ 	/** newQueue instance */
+ 	public static ProcessQueue newQueue;
+ 	
+ 	/** waitQueue instance */
+ 	public static ProcessQueue waitQueue;
+ 	
+ 	/** terminatedQueue instance */
+ 	public static ProcessQueue terminatedQueue;
+ 	
+ 	/** Queue of processes currently running */
+ 	public static ProcessQueue runningQueue;
+
+	/** Long Term Scheduler instance */
+	public static LongScheduler longTermScheduler;
+
+	/** Short Term Scheduler instance */	
+	public static ShortScheduler shortTermScheduler;
+	
+	/** Current process being run */
+	public static PCB[] currentProcess;
+   
+	/** Status of the OS */
+   public static Status status;
+
+	/** Tracks the run time of the OS */
+	public static long totalRunTime=0;
+	
+	/** Tracks the cycle time of the OS */
+	public static long processRunTime=0;
+	   
+   /** 
+   * Returns the readyqueue.  Simplicity's sake.
+   * @return The ArrayList<PCB> readyQueue
+   */
+   public static ArrayList<PCB> getReadyQueue() { return readyQueue.getQueue(); }    
+
+	/**
+	* Returns the newqueue. 
+	* @return The ArrayList<PCB> newQueue
+	*/
+	public static ArrayList<PCB> getNewQueue() { return newQueue.getQueue(); }
+
+	/**
+	* Returns the terminatedQueue
+	* @return The ArrayList<PCB> terminatedQueue
+	*/
+	public static ArrayList<PCB> getTerminatedQueue() { return terminatedQueue.getQueue(); }
+	
+	/**
+	* Returns the waitQueue
+	* @return The ArrayList<PCB> waitQueue
+	*/
+	public static ArrayList<PCB> getWaitQueue() { return waitQueue.getQueue(); }
+	
+	/**
+	* Returns the runningQueue
+	* @return The ArrayList<PCB> runningQueue
+	*/
+	public static ArrayList<PCB> getRunningQueue() { return runningQueue.getQueue(); }
+		
+	/** Status enum */
+	public enum Status {
+		/** New process */
+		NEW,
+		/** Running process */
+		RUNNING,
+		/** Waiting */
+		WAITING,
+		/** Ready */
+		READY,
+		/** Finished process */
+		TERMINATED,
+		/** Done */
+		DONE
+	};
+	
+	/** Short-term Scheduling Policy */
+	public enum SchedulingPolicy {
+		/** First in First out */
+		FIFO,
+		/** Shortest Job First */
+		SJF,
+		/** Low Priority Ran First */
+		LOW_PRIORITY,
+		/** High Priority Ran First */
+		HIGH_PRIORITY
+	};	
+
+	/**
+	* Returns the 4 queues info in a string
+	* @return A String of queue info
+	*/
+	public static String queueString() {
+		return "newQueueSize:"+newQueue.size()+" readyQueueSize:"+readyQueue.size()+" runningQueueSize:"+runningQueue.size()+" waitQueueSize:"+waitQueue.size()+" terminatedQueueSize:"+terminatedQueue.size();			
+	}
+	
+	/** 
+	* Prints the queue info
+	*/
+	public static void queuePrint() {
+		System.out.println(queueString());	
+	}
+
+	/** 
+	* Waits (trying to find this bug)
+	* @param i The seconds to wait
+	*/
+	public static void wait(int i) {
+		long t=System.currentTimeMillis(),t2=0;
+		while((t2-t)<1000*i) {
+			t2=System.currentTimeMillis();	
+		}
+	}
+
+
+	public static void main(String[] args) {
+		
+		readyQueue 		 = new ProcessQueue();
+		runningQueue	 = new ProcessQueue();
+		newQueue 		 = new ProcessQueue();
+		waitQueue 		 = new ProcessQueue();
+		terminatedQueue = new ProcessQueue();
+		
+		currentProcess = new PCB[NUM_CPUS];		
+		cpu=new CPU[NUM_CPUS];
+		
+		long programStart=System.currentTimeMillis();
+		long tmp;
+		long processStart[]=new long[NUM_CPUS];
+		for(int i=0;i<NUM_CPUS;++i)
+			processStart[i]=0;
+				
+		int startingCycleCounter[]=new int[NUM_CPUS];
+		for(int i=0;i<NUM_CPUS;++i)
+			startingCycleCounter[i]=0;
+		
+		// Create the Disk
+		tmp = System.currentTimeMillis();
+		if(MESSAGES) 
+			System.out.print("Instantiating Disk...");
+		disk = new Disk();		
+		if(disk!=null && MESSAGES) 
+				System.out.println("Success! ("+(System.currentTimeMillis()-tmp)+"ms)");
+		else if(MESSAGES)
+			System.out.println("Failure!");			
+		
+		// Load
+		tmp = System.currentTimeMillis();
+		if(MESSAGES) 	
+			System.out.print("Loading processes into Disk...");
+		loader = new Loader();
+		largestProcessSize=loader.load(disk,newQueue);
+		if(MESSAGES)
+			if(loader!=null)
+				System.out.println("Success! ("+(System.currentTimeMillis()-tmp)+"ms)");
+			else 
+				System.out.println("Failure!");			
+		// Create the Ram
+		tmp = System.currentTimeMillis();	
+		if(MESSAGES) 	
+			System.out.print("Creating RAM...");		
+		ram = new RAM();
+		if(MESSAGES)
+			if(ram!=null)
+				System.out.println("Success! ("+(System.currentTimeMillis()-tmp)+"ms)");
+			else 
+				System.out.println("Failure!");			
+						
+		// Create the Long Term Scheduler
+		tmp = System.currentTimeMillis();		
+		if(MESSAGES) 	
+			System.out.print("Creating Long Term Scheduler...");				
+      longTermScheduler = new LongScheduler(ram,disk);
+		if(MESSAGES)
+			if(longTermScheduler!=null)
+				System.out.println("Success! ("+(System.currentTimeMillis()-tmp)+"ms)");
+			else 
+				System.out.println("Failure!");			
+
+ 		// Create the Short Term Scheduler
+		tmp = System.currentTimeMillis();
+		if(MESSAGES) 	
+			System.out.print("Creating Short Term Scheduler...");		
+      shortTermScheduler = new ShortScheduler();
+		if(MESSAGES)
+			if(shortTermScheduler!=null)
+				System.out.println("Success! ("+(System.currentTimeMillis()-tmp)+"ms)");
+			else 
+				System.out.println("Failure!");			
+      
+      // Create the CPUs
+		tmp = System.currentTimeMillis();
+		if(MESSAGES) 	
+			System.out.print("Creating "+NUM_CPUS+" CPUs...");
+		for(int i=0;i<NUM_CPUS;++i)
+			cpu[i]=new CPU(largestProcessSize);
+		if(MESSAGES)
+			if(cpu!=null)
+				System.out.println("Success! ("+(System.currentTimeMillis()-tmp)+"ms)");
+			else 
+				System.out.println("Failure!");			
+
+		
+		int processesFinished = 0;
+		//ram.erase();
+		longTermScheduler.start();
+
+		//cpu[0].DEBUG=true;
+		
+		System.out.println("Program Setup Time: ("+(System.currentTimeMillis()-programStart)+"ms)");
+		programStart=System.currentTimeMillis();		
+		//Start looping through processes
+		do {				
+			//Handle Dispatching for all the cpus
+			for(int i=0;i<NUM_CPUS;++i) {
+				//System.out.println("cpu[i].pc:"+cpu[i].getPc()+" i:"+i+" status:"+cpu[i].getStatus());
+				if(cpu[i].status==Driver.Status.TERMINATED || cpu[i].status==Driver.Status.READY || cpu[i].status==Driver.Status.NEW) {					
+					if(readyQueue.size() > 0) {
+						//Dispatch
+						currentProcess[i]=shortTermScheduler.dispatch(readyQueue);	
+						startingCycleCounter[i]=totalCycleCounter;
+						processStart[i]=System.currentTimeMillis();										
+						if(currentProcess[i]!=null) {	
+							
+						
+							readyQueue.getQueue().remove(currentProcess[i]);
+							runningQueue.getQueue().add(currentProcess[i]);				
+
+							//Start the process	
+							currentProcess[i].setStatus(Status.RUNNING);	
+							currentProcess[i].setPc(currentProcess[i].getInstMemLoc());
+	
+							//Context Switch from ram to cpu
+							shortTermScheduler.restoreState(cpu[i],currentProcess[i],ram);
+							cpu[i].setStatus(Driver.Status.RUNNING);
+						}
+						else
+							System.out.println("Dispatched null");		
+					}
+				} 
+			}
+			for(int i=0;i<NUM_CPUS;++i) {
+				//Run the cpus
+				if(currentProcess[i]!=null) {
+					String tmp2=cpu[i].fetch(currentProcess[i]);			
+					cpu[i].execute(cpu[i].decode(tmp2));
+					//cpu[i].print();
+					
+					//check for end of process and process stats if so			
+					if(cpu[i].getStatus()==Status.TERMINATED) {
+						if(!getTerminatedQueue().contains(currentProcess[i])) {
+							if(DEBUG) {
+								String out = "OutputBuffer process="+currentProcess[i].getPid()+" output=";
+				            for(int j=0;j<currentProcess[i].getOutputBufferSize();++j) {
+	         			   	if(j!=0)
+	            	  				out+=",";  
+	            	  				//Integer.toString(Integer.parseInt(ram.read((i+currentProcess.getDataMemLoc()+currentProcess.getInputBufferSize())),16));                               
+	            				out+=Integer.toString(Integer.parseInt(cpu[i].getCache()[j+currentProcess[i].getProcessSize()+currentProcess[i].getInputBufferSize()],16));                                   
+	            			}
+	            			System.out.println(out);						
+							}
+							longTermScheduler.end(currentProcess[i],cpu[i]);							
+							shortTermScheduler.saveState(cpu[i],currentProcess[i],ram);
+							//System.out.println(ram.toWideString());
+							currentProcess[i].setCyclesRan(totalCycleCounter-startingCycleCounter[i]);
+							currentProcess[i].setCyclesWaited(startingCycleCounter[i]);
+							currentProcess[i].setRealRunTime((System.currentTimeMillis()-processStart[i]));
+							currentProcess[i].setRealWaitTime((processStart[i]-programStart));
+							
+				
+	
+							getTerminatedQueue().add(currentProcess[i]);
+							getRunningQueue().remove(currentProcess[i]);
+							processesFinished++;
+						}										
+					}
+				}
+				else
+					System.out.println("null process");					
+			}
+			
+	//		System.out.println(ram.toWideString());
+			//cpu[0].print();	
+			++totalCycleCounter;
+			ram.saveStats();
+			
+			
+			if((readyQueue.size()) <= 0 && newQueue.size() > 0) {
+				//System.out.println("Erasing RAM for more processes");
+				//System.out.println(ram.toWideString());			
+				ram.erase();			
+				longTermScheduler.start();
+			}		
+			//processesFinished++;	
+					
+			
+		} while((readyQueue.size() > 0 || newQueue.size() > 0 || runningQueue.size() > 0));// && processesFinished < 8);
+		
+		terminatedQueue.printPretty(terminatedQueue);	
+		ProcessQueue.printStats(terminatedQueue);
+		int totalCacheUsed=0; 
+		for(int i=0;i<NUM_CPUS;++i) {			
+			//System.out.print("CPU["+i+"] ");	
+			totalCacheUsed+=cpu[i].getCacheInfo(totalCycleCounter);
+	
+		}
+		System.out.println("Average Cache Used: "+(totalCacheUsed/NUM_CPUS)+"%");
+			//System.out.println(ram.toWideString());
+	
+		ram.printStats(totalCycleCounter);
+		ram.erase();
+		//disk.printWide();
+		disk.erase();
+	}
+}

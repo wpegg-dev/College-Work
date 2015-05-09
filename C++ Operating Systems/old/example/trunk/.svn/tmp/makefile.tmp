@@ -1,0 +1,11 @@
+all:
+	javac ./src/*.java -d ./bin
+run:
+	java -cp ./bin/ Driver
+<<<<<<< .mine
+doc:
+	javadoc ./src/*.java -d ./docs/
+=======
+docs:
+	javadoc ./src/*.java -d ./docs/
+>>>>>>> .r23

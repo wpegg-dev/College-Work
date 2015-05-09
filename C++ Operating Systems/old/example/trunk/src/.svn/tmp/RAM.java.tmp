@@ -1,0 +1,87 @@
+
+
+<<<<<<< .mine
+public class RAM {
+	
+	public RAM() {
+		
+	}
+	
+	
+	public static void write() {}
+=======
+public class RAM 
+{
+	private static String [] ram;
+>>>>>>> .r23
+	
+	private static int size;
+	
+	private static int next_location; 
+	
+	public RAM()
+	{
+		ram = new String [Driver.RAM_SIZE];
+		size=Driver.RAM_SIZE;
+		next_location = 0; 
+	}	
+	public RAM(int s)
+	{
+		ram= new String [s];
+		size= ram.length;
+		next_location=0;
+	}
+	
+	public static int size()
+	 {
+	 	 return size; 
+	 }	
+	
+	private static boolean empty() 
+	{ 
+	  return next_location==0; 
+	}
+	public String toString()
+        {
+                String temp = "Memory Dump:";
+                
+                for(int i = 0; i < ram.length; i++)
+                {
+                        temp += "\n" + ram[i];
+                }
+                
+                return temp;
+        }
+	public static String read(int location) 
+	{
+			 if(location < 0 && location < Driver.RAM_SIZE)
+                {
+                        return ram[location];
+                }
+                else
+                {	
+                	System.out.println ("Read Error");
+                	return 0;
+                	}
+	}
+	public static void write(String data,int location) 
+	{
+		if (data != null)
+		{
+			
+			if(location < 0 && location < Driver.RAM_SIZE)
+			{
+				ram[location] = data;
+			}
+			else
+			{
+				System.out.println ("Write Error");
+				return 0;
+			}		
+		else
+			System.out.println ("Invalid");
+					
+	}
+	
+	
+}
