@@ -1,0 +1,614 @@
+/**************************************************/
+/**************LOGIN/SIGNUP PAGE*******************/
+/**************************************************/
+/*****(EXTENDS TO OTHER PAGES SO BE CAREFUL)*******/
+body{
+	background-image: url('images/bg.jpg');
+}
+#clearfix{
+	clear: both;
+}
+/*SPSU COLOR PALETTE
+PRIMARY: #008852;
+SECONDARY: #6DB33F;
+TERTIARY: #939BA1;
+http://www.spsu.edu/marketing/visual_identity/academic_style_guide/index.htm#The SPSU Font
+*/
+
+#logo{
+	display: block;
+	margin: auto;
+	width: 144px;
+	height: 144px;
+}
+#logo:hover{
+	opacity: 0.97;
+}
+#logoDiv{
+	width: 950px;
+	margin: 0 auto;
+}
+#processing{
+	width:100%;
+	text-align:center;
+}
+#links{
+	width: 950px;
+	height: 40px;
+	background: #000;
+	margin: 0 auto;
+}
+#nav{
+	width: 950px;
+	height: 108px;
+	background: #fff;
+	margin: 0 auto;
+	padding: 10px 0;
+	-webkit-box-shadow: 2px 2px 16px #aaa;
+	-moz-box-shadow: 2px 2px 16px #aaa;
+	box-shadow: 2px 2px 16px #aaa;
+}
+#welcome{
+	width: 90%;
+	margin: 0 auto;
+}
+#welcomeText{
+	color: #008854;
+	text-align: center;
+	padding-top: 22px;
+	font-size: 26px;
+	text-shadow: 
+	-1px -1px 0 #000,
+    1px -1px 0 #000,
+    -1px 1px 0 #000,
+    1px 1px 0 #000;
+}
+#welcomeText h1{
+	margin: 0;
+}
+.firstWelcome{
+	margin-top: 0;
+}
+#mainBody{
+	width: 950px;
+	height: 100%;
+	background: #fff;
+	margin-left: auto;
+	margin-right: auto;
+	overflow: auto;
+}
+#header, #links, #nav, #mainBody{
+	font-family: "Arial", sans-serif ;
+}
+#footer{
+	background: #000;
+	width: 950px;
+	height: 40px;
+	margin: 0 auto;
+}
+#leftMain{
+	width: 400px;
+	float: left;
+}
+#leftMain span{
+	color: #777;
+}
+#welcomeInfo{
+	margin: 10px 0 0 15px;
+}
+#rightMain{
+	width: 525px;
+	height: 278px;
+	margin: 10px 15px 0 0;
+	float: right;
+	background-color: #ebeeff;
+	-webkit-box-shadow: 4px 4px 6px #aaa;
+	-moz-box-shadow: 4px 4px 6px #aaa;
+	box-shadow: 4px 4px 6px #aaa;
+}
+#rightMain h3{
+	text-align: center;
+}
+#login, #signup{
+	float: left;
+	margin-left: 25px;
+}
+#signup{
+	margin-right: 25px;
+}
+#login span, #login input{
+	clear: both;
+	float: left;
+}
+#formText, #formData{
+	float: left;
+}
+#formText span, #formData input{
+	clear: both;
+	float: left;
+}
+#formText span{
+	height: 16px;
+	padding: 5px 0;
+}
+#formData{
+	margin-left: 30px;
+}
+#login input, #formData input{
+	width: 140px;
+	border-radius: 5px;
+}
+#login .IndexLoginButton, #signup .IndexLoginButton{
+	height: 25px;
+	border-radius: 10px;
+	color: #efefe9;
+	background: #008854;
+	letter-spacing: 1px;
+}
+#login .IndexLoginButton:hover, #signup .IndexLoginButton:hover{
+	color: rgb(255, 196, 37);
+}
+/*******************NAV CONTENT*************************/
+#profilePicture, #groupPicture{
+	float: left;
+	margin: 0 75px;
+}
+#username{
+	text-align: center;
+	font-size: 25px;
+	font-weight: bold;
+	width: 72%;
+	margin-top: 39px;
+}
+#navBar{
+	width: 316px;
+	padding-top: 6.5px;
+	float: left;
+}
+#navBar ul{
+	padding: 0;
+	margin: 0;
+	float: right;
+}
+#navBar li{
+	list-style: none;
+	float: left;
+	padding: 4px 10px;
+	color: #fff;
+}
+#navBar li:hover{
+	color: #6DB33F;
+}
+#navBar label{
+	cursor: pointer;
+}
+#searchBar{
+	float: right;
+	margin:0;
+	padding-top: 6.5px;
+}
+#searchBar input[type=text]{
+	width: 200px;
+	border-radius: 5px;
+}
+#searchBar img{
+	height: 16px;
+	margin: 0 15px -3px -20px;
+	cursor: pointer;
+}
+/*************************PROFILE PAGE****************************/
+#profileDiv{
+	margin: 0 5px;
+}
+#groups{
+	float: left;
+	text-align: center;
+	width: 25%;
+	border: 1px solid #808080;
+}
+#groups ul{
+	padding: 0;
+}
+#groups li{
+	list-style: none;
+	text-align: center;
+	margin: 5px 0;
+}
+#groups h2, #MyGroupsPage h2{
+	background: #DADFDF;
+	margin-top: 0;
+	border-bottom-style: solid;
+	border-width: 1px;
+	border-color: #808080;
+}
+#filesDiv, #groupFiles{
+	width: 75%;
+	float: right;
+	border: 1px solid #808080;
+}
+#groupFiles{
+	width: 100%;
+	float: right;
+}
+#MyGroupsPage{
+	width: 98%;
+	margin: 0 auto;
+	border: 1px solid #808080;
+}
+#MyGroupsPage ul{
+	padding: 0;
+}
+#MyGroupsPage li{
+	list-style: none;
+	text-align: center;
+	margin: 5px 0;
+}
+#groupListHead{
+	text-align: center;
+	font-weight: bold;
+}
+#final{
+	display: block;
+	margin: 10px auto;
+	-moz-box-shadow:inset 0px 1px 0px 0px #ffffff;
+	-webkit-box-shadow:inset 0px 1px 0px 0px #ffffff;
+	box-shadow:inset 0px 1px 0px 0px #ffffff;
+	background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #ededed), color-stop(1, #dfdfdf) );
+	background:-moz-linear-gradient( center top, #ededed 5%, #dfdfdf 100% );
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#ededed', endColorstr='#dfdfdf');
+	background-color:#ededed;
+	border:1px solid #dcdcdc;
+	color:#777777;
+	font-family:Arial;
+	font-size:15px;
+	font-weight:bold;
+	font-style:normal;
+	height:40px;
+	line-height:40px;
+	width:100px;
+	padding: 0 10px;
+	text-decoration:none;
+	text-align:center;
+}
+#final:hover {
+	background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #dfdfdf), color-stop(1, #ededed) );
+	background:-moz-linear-gradient( center top, #dfdfdf 5%, #ededed 100% );
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#dfdfdf', endColorstr='#ededed');
+	background-color:#dfdfdf;
+	cursor: pointer;
+}
+#final:active {
+	position:relative;
+	top:1px;
+}
+/********************GROUPS CONTENT******************/
+#groupsLeft{
+	float: left;
+	width: 25%;
+}
+#groupsLeft ul{
+	list-style: none;
+	padding: 0;
+}
+#groupsRight{
+	width: 72%;
+	float: right;
+	border: 1px solid #808080;
+}
+#groupData{
+	width: 100%;
+}
+#groupHeader{
+	text-align: center;
+	font-weight: bold;
+}
+#groupInfo{
+	padding-left: 10px;
+	padding-right: 10px;
+}
+#memberList, #groupLinks {
+	float: left;
+	text-align: center;
+	border: 1px solid #808080;
+	width: 100%;
+}
+#memberList label{
+	cursor: pointer;
+}
+#memberTitle, #linksTitle, #groupHeader h2, #settingsView h2, #groupListHead{
+	margin-top: 0;
+	font-weight: bold;
+	background: #DADFDF;
+	border-bottom-style: solid;
+	border-width: 1px;
+	border-color: #808080;
+}
+#memberList ul, #groups ul{
+	text-align: center;
+}
+#groupLinks{
+	clear: both;
+	margin: 0 0 10px;
+}
+#groupLinks li > label:hover, #membersLinks li > label:hover, #groups li > label:hover, #MyGroupsPage li > label:hover, #searchResultsPage li > label:hover, #MyFriends li > label:hover{
+	color: rgb(255, 196, 37);
+	background: #008854;
+	cursor: pointer;
+}
+/******************DISCUSSIONS********************/
+#topicTitle{
+	border: 1px solid #222;
+	background: #008854;
+	width: 99%;
+	cursor: pointer;
+}
+#topicTitle span{
+	display: inline-block;
+}
+#date{
+	font-size: 12px;
+	color: #222;
+	display: inline-block;
+	max-width: 75px;
+}
+#title{
+	font-size: 24px;
+	color: #fff;
+	line-height: 29px;
+}
+#author{
+	float: right;
+	padding-right: 5px;
+	color: rgb(255, 196, 37);
+	font-size: 15px;
+	line-height: 29px;
+}
+#commentTitle{
+	border: 1px solid #777;
+	background: #6DB33F;
+	cursor: pointer;
+}
+#commentText{
+	border-radius: 0px 0px 0px 0px; 
+	border-style: solid;
+	border-color: #777;
+	padding: 0 10px;
+}
+#replyComment{
+	cursor: pointer;
+}
+/*********************FRIENDS************************/
+#friendsList{
+	margin: 0;
+}
+#friendBar{
+	text-align: center;
+	font-style: italic;
+}
+#filesDiv p{
+	margin: 15px;
+}
+/**************************SEARCH*****************************/
+#searchResultsPage{
+	width: 98%;
+	margin: 0 auto;
+	border: 1px solid #808080;
+}
+#searchResultsPage ul{
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+#searchResultList li, #friendsList li{
+	text-align: center;
+	height: 112px;
+}
+#searchResultList span, #friendsList img{
+	float: left;
+	margin: 2px 0 0 10px;
+	width: 108px;
+	height: 108px;
+	overflow: hidden;
+}
+#searchResultList label, #friendsList label{
+	line-height: 112px;
+	cursor: pointer;
+	margin-left: -108px;
+}
+/**************************FRIENDS*****************************/
+#MyFriends{
+	width: 98%;
+	margin: 0 auto;
+	border: 1px solid #808080;
+}
+#MyFriends ul{
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+#friendsList li{
+	text-align: center;
+	height: 112px;
+}
+#friendsList h3{
+	line-height: 112px;
+	cursor: pointer;
+}
+/***********************SETTINGS****************************/
+#settingsView{
+	width: 98%;
+	margin: 0 auto;
+	border: 1px solid #808080;
+}
+#settingsView ul{
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+#settingsView h5{
+	cursor: pointer;
+}
+#settingsHead, #settingsView h3{
+	text-align: center;
+}
+#groupSettingsDiv label{
+	float: left;
+	margin-top: 5px;
+	clear: both;
+	cursor: pointer;
+}
+#leftSettings{
+	width: 45%;
+	float: left;
+	clear: both;
+}
+#leftSettings ul{
+	list-style: none;
+}
+#leftSettings li{
+	padding: 3.5px 0;
+}
+#leftSettings label{
+	cursor: default;
+}
+#rightSettings{
+	width: 45%;
+	float: right;
+}
+#rightSettings ul{
+	list-style: none;
+	padding: 0;
+}
+#rightSettings input{
+	color: #A0A0A0;
+}
+#rightSettings textarea{
+	max-width: 300px;
+}
+#editMembersList{
+	list-style: none;
+}
+#removeMemberLink label{
+	cursor: pointer;
+}
+#groupAdminIcon{
+	cursor: pointer;
+}
+/*****************FILE EXPLORER********************/
+#repoHead{
+	background: #DADFDF;
+	text-align: center;
+	margin-top: 0;
+	border-bottom-style: solid;
+	border-width: 1px;
+	border-color: #808080;
+}
+#filesDiv{
+	width: 72%;
+}
+#fileActionBar{
+	margin: 0 auto;
+}
+#fileActionBar label, #fileRepoAction label{
+	cursor: pointer;
+}
+#deleteFileLink:hover, #uploadFileLink:hover{
+	color: rgb(255, 196, 37);
+	background: #008854;
+	border-radius: 2px;
+}
+//This is for the file explorer plugin
+UL.jqueryFileTree {
+	font-family: Verdana, sans-serif;
+	font-size: 11px;
+	line-height: 18px;
+	padding: 0px;
+	margin: 0px;
+}
+
+UL.jqueryFileTree LI{
+	list-style: none;
+	padding: 0px;
+	padding-left: 20px;
+	margin: 0px;
+	white-space: nowrap;
+}
+
+UL.jqueryFileTree A{
+	color: #333;
+	text-decoration: none;
+	display: block;
+	padding: 0px 2px;
+}
+
+UL.jqueryFileTree A:hover {
+	color: rgb(255, 196, 37);
+	background: #008854;
+	border-radius: 2px;
+}
+
+/* Core Styles */
+.jqueryFileTree LI.directory { background: url(images/directory.png) left top no-repeat; }
+.jqueryFileTree LI.expanded { background: url(images/folder_open.png) left top no-repeat; }
+.jqueryFileTree LI.file { background: url(images/file.png) left top no-repeat; }
+.jqueryFileTree LI.wait { background: url(images/spinner.gif) left top no-repeat; }
+/* File Extensions*/
+.jqueryFileTree LI.ext_3gp { background: url(images/film.png) left top no-repeat; }
+.jqueryFileTree LI.ext_afp { background: url(images/code.png) left top no-repeat; }
+.jqueryFileTree LI.ext_afpa { background: url(images/code.png) left top no-repeat; }
+.jqueryFileTree LI.ext_asp { background: url(images/code.png) left top no-repeat; }
+.jqueryFileTree LI.ext_aspx { background: url(images/code.png) left top no-repeat; }
+.jqueryFileTree LI.ext_avi { background: url(images/film.png) left top no-repeat; }
+.jqueryFileTree LI.ext_bat { background: url(images/application.png) left top no-repeat; }
+.jqueryFileTree LI.ext_bmp { background: url(images/picture.png) left top no-repeat; }
+.jqueryFileTree LI.ext_c { background: url(images/code.png) left top no-repeat; }
+.jqueryFileTree LI.ext_cfm { background: url(images/code.png) left top no-repeat; }
+.jqueryFileTree LI.ext_cgi { background: url(images/code.png) left top no-repeat; }
+.jqueryFileTree LI.ext_com { background: url(images/application.png) left top no-repeat; }
+.jqueryFileTree LI.ext_cpp { background: url(images/code.png) left top no-repeat; }
+.jqueryFileTree LI.ext_css { background: url(images/css.png) left top no-repeat; }
+.jqueryFileTree LI.ext_doc { background: url(images/doc.png) left top no-repeat; }
+.jqueryFileTree LI.ext_exe { background: url(images/application.png) left top no-repeat; }
+.jqueryFileTree LI.ext_gif { background: url(images/picture.png) left top no-repeat; }
+.jqueryFileTree LI.ext_fla { background: url(images/flash.png) left top no-repeat; }
+.jqueryFileTree LI.ext_h { background: url(images/code.png) left top no-repeat; }
+.jqueryFileTree LI.ext_htm { background: url(images/html.png) left top no-repeat; }
+.jqueryFileTree LI.ext_html { background: url(images/html.png) left top no-repeat; }
+.jqueryFileTree LI.ext_jar { background: url(images/java.png) left top no-repeat; }
+.jqueryFileTree LI.ext_jpg { background: url(images/picture.png) left top no-repeat; }
+.jqueryFileTree LI.ext_jpeg { background: url(images/picture.png) left top no-repeat; }
+.jqueryFileTree LI.ext_js { background: url(images/script.png) left top no-repeat; }
+.jqueryFileTree LI.ext_lasso { background: url(images/code.png) left top no-repeat; }
+.jqueryFileTree LI.ext_log { background: url(images/txt.png) left top no-repeat; }
+.jqueryFileTree LI.ext_m4p { background: url(images/music.png) left top no-repeat; }
+.jqueryFileTree LI.ext_mov { background: url(images/film.png) left top no-repeat; }
+.jqueryFileTree LI.ext_mp3 { background: url(images/music.png) left top no-repeat; }
+.jqueryFileTree LI.ext_mp4 { background: url(images/film.png) left top no-repeat; }
+.jqueryFileTree LI.ext_mpg { background: url(images/film.png) left top no-repeat; }
+.jqueryFileTree LI.ext_mpeg { background: url(images/film.png) left top no-repeat; }
+.jqueryFileTree LI.ext_ogg { background: url(images/music.png) left top no-repeat; }
+.jqueryFileTree LI.ext_pcx { background: url(images/picture.png) left top no-repeat; }
+.jqueryFileTree LI.ext_pdf { background: url(images/pdf.png) left top no-repeat; }
+.jqueryFileTree LI.ext_php { background: url(images/php.png) left top no-repeat; }
+.jqueryFileTree LI.ext_png { background: url(images/picture.png) left top no-repeat; }
+.jqueryFileTree LI.ext_ppt { background: url(images/ppt.png) left top no-repeat; }
+.jqueryFileTree LI.ext_psd { background: url(images/psd.png) left top no-repeat; }
+.jqueryFileTree LI.ext_pl { background: url(images/script.png) left top no-repeat; }
+.jqueryFileTree LI.ext_py { background: url(images/script.png) left top no-repeat; }
+.jqueryFileTree LI.ext_rb { background: url(images/ruby.png) left top no-repeat; }
+.jqueryFileTree LI.ext_rbx { background: url(images/ruby.png) left top no-repeat; }
+.jqueryFileTree LI.ext_rhtml { background: url(images/ruby.png) left top no-repeat; }
+.jqueryFileTree LI.ext_rpm { background: url(images/linux.png) left top no-repeat; }
+.jqueryFileTree LI.ext_ruby { background: url(images/ruby.png) left top no-repeat; }
+.jqueryFileTree LI.ext_sql { background: url(images/db.png) left top no-repeat; }
+.jqueryFileTree LI.ext_swf { background: url(images/flash.png) left top no-repeat; }
+.jqueryFileTree LI.ext_tif { background: url(images/picture.png) left top no-repeat; }
+.jqueryFileTree LI.ext_tiff { background: url(images/picture.png) left top no-repeat; }
+.jqueryFileTree LI.ext_txt { background: url(images/txt.png) left top no-repeat; }
+.jqueryFileTree LI.ext_vb { background: url(images/code.png) left top no-repeat; }
+.jqueryFileTree LI.ext_wav { background: url(images/music.png) left top no-repeat; }
+.jqueryFileTree LI.ext_wmv { background: url(images/film.png) left top no-repeat; }
+.jqueryFileTree LI.ext_xls { background: url(images/xls.png) left top no-repeat; }
+.jqueryFileTree LI.ext_xml { background: url(images/code.png) left top no-repeat; }
+.jqueryFileTree LI.ext_zip { background: url(images/zip.png) left top no-repeat; }
+
